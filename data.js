@@ -32,9 +32,9 @@ function transcribeData(students) {
         // console.log(`First name _${student.firstName}_`)
 
 
-        // split and join helps removing the quotes
         const secondName = removeSpace.substring(firstSpace + 1, lastSpace);
-        if (secondName.includes("E")) {
+        if (secondName.includes('"')) {
+            // split and join helps removing the quotes
             const removeQuotes = secondName.split('"').join('');
             student.nickname = removeQuotes.substring(0, 1).toUpperCase() + removeQuotes.substring(1).toLowerCase();
             // console.log(`Second name _${student.middleName}_`);
@@ -48,7 +48,6 @@ function transcribeData(students) {
         student.lastName = removeSpace.substring(lastSpace);
         student.lastName = removeSpace.substring(lastSpace + 1, lastSpace + 2).toUpperCase() + removeSpace.substring(lastSpace + 2).toLowerCase();
 
-        // student.nickname = removeSpace.includes("");
         const removeSpaceHouse = s.house.trim();
         student.house = removeSpaceHouse;
         student.house = removeSpaceHouse.substring(0, 1).toUpperCase() + removeSpaceHouse.substring(1).toLowerCase();
