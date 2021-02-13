@@ -19,8 +19,6 @@ function transcribeData(students) {
             middleName: "",
             lastName: "",
             nickname: "",
-            gender: "",
-            house: ""
         }
         const student = Object.create(Student);
 
@@ -29,22 +27,21 @@ function transcribeData(students) {
         const firstSpace = removeSpace.indexOf(" ");
         const lastSpace = removeSpace.lastIndexOf(" ");
 
-        // remember "Leanne" is not correct yet
-        student.firstName = removeSpace.substring(0, firstSpace);
-        student.firstName = removeSpace.substring(0, 1).toUpperCase() + removeSpace.substring(1, firstSpace).toLowerCase();
+        const mainName = removeSpace.substring(0, firstSpace) || removeSpace.substring(0);
+        student.firstName = mainName.substring(0, 1).toUpperCase() + mainName.substring(1).toLowerCase();
         // console.log(`First name _${student.firstName}_`)
 
-        // remember "ernie"'s quotes need to be removed
-        student.middleName = removeSpace.substring(firstSpace + 1, lastSpace);
-        if (student.middleName.length > 2) {
-            student.middleName = removeSpace.substring(firstSpace + 1, firstSpace + 2).toUpperCase() + removeSpace.substring(firstSpace + 2, lastSpace).toLowerCase();
+        // split and join helps removing the quotes
+        const secondName = removeSpace.substring(firstSpace + 1, lastSpace).split('"').join('');
+        if (secondName.length > 2) {
+            student.middleName = secondName.substring(0, 1).toUpperCase() + secondName.substring(1).toLowerCase();
             // console.log(`Second name _${student.middleName}_`);
         } else {
-            // console.log("denied");
+            student.middleName = undefined;
         }
 
         student.lastName = removeSpace.substring(lastSpace);
-        student.lastName = removeSpace.substring(lastSpace + 1, lastSpace + 2).toUpperCase() + removeSpace.substring(lastSpace + 2);
+        student.lastName = removeSpace.substring(lastSpace + 1, lastSpace + 2).toUpperCase() + removeSpace.substring(lastSpace + 2).toLowerCase();
 
         const removeSpaceHouse = s.house.trim();
         student.house = removeSpaceHouse;
